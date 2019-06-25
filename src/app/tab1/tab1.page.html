@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Lista de la compra
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="autocomplete">
+    <ion-searchbar
+      placeholder="Tomates, galletas, servilletas..."
+      searchIcon="cart"
+      [(ngModel)]="searchText"
+      (ionChange)="search()"
+      (ionFocus)="search()"
+      debounce=500>
+    </ion-searchbar>
+    <ion-list>
+      <ion-item *ngFor="let res of productos" (click)="addNote(res)">
+          <ion-icon class="plus" name="add-circle-outline"></ion-icon>{{res}}
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-item-sliding *ngFor="let entry of checks; let i = index;">
+      <ion-item>
+        <ion-label>
+          <ion-label>{{entry}}</ion-label>
+        </ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="remove(i)">
+          <ion-icon slot="icon-only" name="trash" ></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+  </ion-item-sliding>
+</ion-content>

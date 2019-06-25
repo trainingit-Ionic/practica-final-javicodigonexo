@@ -1,0 +1,7 @@
+{
+  "name": "javibola-practica-final",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,42 @@
+.welcome-card ion-img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+ion-item{
+  &.item-checkbox-checked{
+    color: #b5b5b5;
+    text-decoration: line-through;
+    font-style: italic;
+  }
+}
+.autocomplete {
+	width: 100%;
+	ion-list {
+		position: absolute;
+		width: inherit;
+		overflow-y: scroll;
+		max-height: 150%;
+		z-index: 999;
+    box-shadow: 0 5px 4px 0px #00000017;
+		ion-item {
+      &:last-child{
+        border-bottom: 0px;
+      }
+			img {
+				max-height: 2.5rem;
+				width: auto;
+				margin: auto;
+				display: block;
+			}
+		}
+
+		ion-item:hover {
+			cursor: pointer;
+			background: #f1f1f1
+		}
+	}
+}
+
+.plus{
+  margin-right: 10px;
+}
