@@ -54,6 +54,7 @@ export class Tab1Page {
       }
     }
     this.checks.push(item);
+    this.searchText = "";
   }
 
   remove(no:number){
