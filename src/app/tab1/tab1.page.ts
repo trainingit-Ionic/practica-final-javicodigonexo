@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -8,13 +9,14 @@ import { Storage } from '@ionic/storage';
 })
 export class Tab1Page {
   productos = []; 
+  limpiar = false;
   checks = []; 
   searchText:string;
   no = 0;
   productosSaved = [];
   productosTmp = this.storage.get('productos').then( valores => this.productosSaved = valores );
 
-  constructor(private storage: Storage) {
+  constructor(private storage: Storage, public toastController: ToastController) {
     this.productos = [];
   }
   search(){
@@ -42,6 +44,7 @@ export class Tab1Page {
     this.productos = [];
   }
   addNote(item:string){
+    this.limpiar = true;
     this.productos = [];
     if(!this.productosSaved){
       this.productosSaved = []
@@ -58,7 +61,32 @@ export class Tab1Page {
   }
 
   remove(no:number){
-    
+    var item = this.checks[no];
+    this.toastController.create({
+      message: "<b>"+item+"</b> eliminado correctamente",
+      duration: 2000
+    }).then(
+      toast => {
+      toast.present();
+      }
+    );
+
     (this.checks).splice(no, 1);
+    if(this.checks.length <=0){
+      this.limpiar = false;
+    }
+  }
+
+  limpiar_todo(){
+    this.checks=[];
+    this.limpiar = false;
+    this.toastController.create({
+      message: "¡Lista limpia!",
+      duration: 2000
+    }).then(
+      toast => {
+      toast.present();
+      }
+    );
   }
 }
