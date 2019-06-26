@@ -18,20 +18,24 @@ export class Tab1Page {
     this.productos = [];
   }
   search(){
-    if(this.searchText.length > 2){
-      console.log(this.productosSaved);
-      this.productos = [];
-      this.productos.push(this.searchText);
-      for(var e in this.productosSaved){
-        if(this.searchText != this.productosSaved[e]){
-          if(this.productosSaved[e].indexOf(this.searchText) >= 0){
-            this.productos.push(this.productosSaved[e]);
+    if(this.searchText){
+      if(this.searchText.length > 2){
+        console.log(this.productosSaved);
+        this.productos = [];
+        this.productos.push(this.searchText);
+        for(var e in this.productosSaved){
+          var first = this.searchText;
+          var second = this.productosSaved[e];
+          if(first.toUpperCase() != second.toUpperCase()){
+            if(second.toUpperCase().indexOf(first.toUpperCase()) >= 0){
+              this.productos.push(second);
+            }
           }
         }
+        //this.productos = [this.searchText, 'tomate', 'patatas', 'morcilla'];
+      }else{
+        this.productos = [];
       }
-      //this.productos = [this.searchText, 'tomate', 'patatas', 'morcilla'];
-    }else{
-      this.productos = [];
     }
   }
   removeFocus(){
