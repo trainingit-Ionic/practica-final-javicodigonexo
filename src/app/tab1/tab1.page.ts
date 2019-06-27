@@ -16,9 +16,11 @@ export class Tab1Page {
   searchText:string;
   no = 0;
   productosSaved = [];
-  productosTmp = this.storage.get('productos').then( valores => this.productosSaved = valores );
+
 
   constructor(private storage: Storage, public toastController: ToastController, public platform: Platform, public splashscreen:SplashScreen) {
+    storage.get('productos').then( valores => this.productosSaved = valores );
+    storage.get('checks').then( valores => {this.checks = valores; if(this.checks.length > 0){ this.limpiar = true }} );
     this.productos = [];
     platform.ready().then(() => {
       this.splashscreen.hide();
@@ -61,7 +63,11 @@ export class Tab1Page {
         this.storage.set('productos', this.productosSaved);
       }
     }
+    if(!this.checks){
+      this.checks = []
+    }
     this.checks.push(item);
+    this.storage.set('checks', this.checks);
     this.searchText = "";
   }
 
@@ -77,6 +83,7 @@ export class Tab1Page {
     );
 
     (this.checks).splice(no, 1);
+    this.storage.set('checks', this.checks);
     if(this.checks.length <=0){
       this.limpiar = false;
     }
