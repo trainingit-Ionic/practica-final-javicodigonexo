@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { ToastController } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -16,8 +18,11 @@ export class Tab1Page {
   productosSaved = [];
   productosTmp = this.storage.get('productos').then( valores => this.productosSaved = valores );
 
-  constructor(private storage: Storage, public toastController: ToastController) {
+  constructor(private storage: Storage, public toastController: ToastController, public platform: Platform, public splashscreen:SplashScreen) {
     this.productos = [];
+    platform.ready().then(() => {
+      this.splashscreen.hide();
+    });
   }
   search(){
     if(this.searchText){
